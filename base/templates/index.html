@@ -1,0 +1,112 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Youtube Video downloader</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <style>
+        html {
+            margin: 0px;
+            height: 100%;
+            width: 100%;
+        }
+        body {
+            margin: 0px;
+            height: 100%;
+            width: 100%;
+            background-color:lightskyblue;
+            display: flex;
+            justify-content: space-between;
+        }
+        .leftbar{
+            flex-grow:1;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+        .rightbar{
+            height:100%;
+            background-color: plum;
+            flex-grow: 5;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            align-self: center;
+        }
+        form{
+            background-color:white;
+            padding:30px;
+            border-radius: 15%;
+        }
+        .cftt{
+            width:300px;
+            height: auto;
+        }   
+        .basecss{
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+        .videoclass{
+            width:350px;
+        }
+    </style
+</head>
+  <body>
+    <div class = "leftbar">
+        <div class = "insideleftbar">
+            <form action="" method="post" class = "">
+                {% csrf_token %}
+                <input type="text" name="ytlink" id="" placeholder="Youtube-link">
+                <br>
+                <div>
+                    Audio: <input type="radio" name="typeto" value = "1" >
+                </div>
+                <br>
+                <div>
+                    Video: <input type="radio" name="typeto" value = "2" checked>
+                </div>
+                <br>
+                <input type="submit" class = " btn btn-primary" value="Download">
+            </form>
+    
+        </div>
+    </div>
+    <div class = "rightbar">
+        {% if url != None %}
+        <div class = "videoclass">
+            <iframe width="350" height="350"src={{embedlink}} autoplay = 1 mute = 1>
+            </iframe>
+            <h4 class = "bg-light text-wrap">{{videotitle}}</h4>    
+        </div>    
+        <table class = "table table-dark table-hover cftt" >   
+                <thead class="thead-dark"><tr>
+                    <th>File Size</th>                    
+                    <th>Quality</th>                    
+                    <th>link</th>                    
+                </tr></thead>
+                {% for res, fs in tabledata %}
+                    <tr>
+                        <td>{{fs}}</td>
+                        <td>{{res}}</td>
+                        <td><a href = "/downloadfile/{{res}}"> <button class="btn btn-primary">Download</button> </a></td>
+                    </tr>
+                {% endfor %}
+        </table>
+        {% else %}
+            <div >
+                <iframe width="500" height="315"src={{embedlink}} controls autoplay>
+                </iframe>
+            </div>
+        {% endif %}
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
